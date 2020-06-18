@@ -1,7 +1,15 @@
-def greatest_impact(lst):
-	mood = {'Weather': sum(i[1]/10 for i in lst)/len(lst),
-			'Meals': sum(i[2]/3 for i in lst)/len(lst),
-			'Sleep': sum(i[3]/10 for i in lst)/len(lst)}
-	
-	if len(set(mood.values())) == 1: return 'Nothing'
-	return min(mood, key=lambda x: mood.get(x))
+def split_into_buckets(phrase, n):
+    buckets = []
+    s = ''
+    
+    for i in phrase.split():
+        if len(i) > n:
+            return []
+        elif len(s + i) <= n - 1:
+            s = (s + ' ' + i).lstrip()
+        else:
+            if s:
+                buckets.append(s)
+            s = i
+            
+    return buckets + [s]
